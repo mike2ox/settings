@@ -1,0 +1,12 @@
+# 원본 설정 백업 (로컬 안전장치, 커밋하지 않음)
+.backup/
+
+# macOS
+.DS_Store
+
+# 시크릿 — 절대 커밋 금지
+*.pem
+*.key
+.env
+.env.*
+!.env.example

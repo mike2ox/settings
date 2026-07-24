@@ -1,0 +1,95 @@
+# Brewfile — 새 macOS 개발환경 일괄 설치
+#
+#   brew bundle --file=macos/Brewfile          # 설치
+#   brew bundle check --file=macos/Brewfile    # 누락 확인
+#   brew bundle cleanup --file=macos/Brewfile  # 목록에 없는 것 정리 (--force 로 실제 삭제)
+#
+# 이 파일에 없는 수동 설치 항목은 docs/manual-install.md 참고
+
+# ─────────────────────────────────────────────
+# Taps
+# ─────────────────────────────────────────────
+tap "dopplerhq/cli"
+
+# ─────────────────────────────────────────────
+# Core CLI — 셸/깃/기본 도구
+# ─────────────────────────────────────────────
+brew "git"
+brew "gh"                # GitHub CLI
+brew "tree"
+brew "pre-commit"
+
+# ─────────────────────────────────────────────
+# 런타임 버전 관리
+# ─────────────────────────────────────────────
+brew "mise"              # 통합 버전 매니저 (node/python/go/java 등)
+brew "uv"                # Python 패키지·프로젝트 매니저
+brew "virtualenv"
+brew "pnpm"
+
+# mise 로 관리하는 것이 원칙이나, 전역 고정이 필요한 런타임만 brew 로 유지
+brew "node@18"
+brew "node@20"
+brew "python@3.11"
+brew "openjdk"
+brew "openjdk@17"
+
+# ─────────────────────────────────────────────
+# 데이터베이스 / 인프라
+# ─────────────────────────────────────────────
+brew "postgresql@14"
+brew "libpq"             # psql 등 클라이언트 도구
+brew "azure-cli"
+brew "cloudflared"
+brew "mkcert"            # 로컬 HTTPS 인증서
+
+# ─────────────────────────────────────────────
+# 기타 유틸리티
+# ─────────────────────────────────────────────
+brew "ffmpeg"
+brew "poppler"           # PDF 처리 (pdftotext 등)
+brew "terminal-notifier" # 셸에서 macOS 알림
+brew "rtk"               # Rust Token Killer (CLI 프록시)
+
+# ─────────────────────────────────────────────
+# Cask — 터미널 / 에디터
+# ─────────────────────────────────────────────
+cask "ghostty"
+cask "visual-studio-code"
+cask "zed"
+cask "datagrip"
+
+# ─────────────────────────────────────────────
+# Cask — AI 코딩 도구
+# ─────────────────────────────────────────────
+cask "claude"
+cask "codex"
+cask "chatgpt"
+
+# ─────────────────────────────────────────────
+# Cask — 개발 인프라
+# ─────────────────────────────────────────────
+cask "docker"
+cask "ngrok"
+cask "dotnet-sdk"
+
+# ─────────────────────────────────────────────
+# Cask — 생산성 / 브라우저
+# ─────────────────────────────────────────────
+cask "google-chrome"
+cask "rectangle"         # 창 관리
+cask "notion"
+cask "obsidian"
+cask "textsniper"        # 화면 OCR
+
+# ─────────────────────────────────────────────
+# Cask — 네트워크 / 보안
+# ─────────────────────────────────────────────
+cask "tailscale"
+cask "protonvpn"
+
+# ─────────────────────────────────────────────
+# Cask — 커뮤니케이션
+# ─────────────────────────────────────────────
+cask "slack"
+cask "discord"

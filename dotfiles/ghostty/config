@@ -1,0 +1,75 @@
+# Ghostty 설정
+# 배치 위치: ~/.config/ghostty/config
+#
+#   전체 옵션 보기: ghostty +show-config --default --docs
+#   적용된 값 확인: ghostty +show-config
+#   설치 폰트 목록: ghostty +list-fonts
+#   테마 목록:     ghostty +list-themes
+#
+# 주의: font-family 는 누적되어 폴백 체인이 된다.
+#       교체하려면 이 파일에서 값을 바꿀 것 (여러 줄 추가 시 폴백으로 쌓임).
+
+# ─────────────────────────────────────────────
+# 폰트
+# ─────────────────────────────────────────────
+# Pravka: Iosevka 34.6 기반 PragmataPro 스타일.
+#   - Nerd Font 글리프 패치본이라 아이콘 깨지지 않음
+#   - Source Han Mono 폴백으로 한글 포함
+#   - 설치: ./macos/install-fonts.sh
+font-family = Pravka Nerd Font Mono
+font-size = 13
+
+# 이전에 쓰던 폰트 (되돌리려면 위 줄을 주석 처리하고 아래를 활성화)
+# font-family = Google Sans Code
+# font-family = Sarasa Term K
+# font-family = JetBrains Mono
+
+# ─────────────────────────────────────────────
+# 테마 / 외관
+# ─────────────────────────────────────────────
+theme = GitHub Dark Default
+
+window-padding-x = 5
+window-padding-y = 5
+
+# split 구분을 명확히
+unfocused-split-opacity = 0.8
+split-divider-color = #0088e8
+
+# ─────────────────────────────────────────────
+# 스크롤백
+# ─────────────────────────────────────────────
+scrollback-limit = 100000
+
+# ─────────────────────────────────────────────
+# 셸 통합
+# ─────────────────────────────────────────────
+# 커서 모양 추적, sudo 시 환경 유지, 창 제목 자동 갱신
+shell-integration = zsh
+shell-integration-features = cursor,sudo,title
+
+# ─────────────────────────────────────────────
+# 동작
+# ─────────────────────────────────────────────
+confirm-close-surface = false
+
+# ─────────────────────────────────────────────
+# 키바인딩
+# ─────────────────────────────────────────────
+keybind = cmd+m=toggle_maximize
+
+# 단어 단위 이동 (macOS 표준 Option+←/→)
+keybind = alt+left=esc:b
+keybind = alt+right=esc:f
+
+# 설정 리로드
+keybind = cmd+shift+r=reload_config
+
+# ─────────────────────────────────────────────
+# 한글 렌더링 (필요 시 활성화)
+# ─────────────────────────────────────────────
+# 한글/박스문자 폭이 어긋나면 아래를 켠다.
+# Pravka 는 CJK 를 포함하므로 기본적으로는 불필요.
+# grapheme-width-method = unicode
+# adjust-cell-height = 15%
+# adjust-font-baseline = -2%
