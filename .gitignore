@@ -4,6 +4,9 @@
 # macOS
 .DS_Store
 
+# Claude Code 로컬 권한 설정 (머신별)
+.claude/settings.local.json
+
 # 시크릿 — 절대 커밋 금지
 *.pem
 *.key

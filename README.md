@@ -42,7 +42,7 @@ cp dotfiles/ghostty/config ~/.config/ghostty/config
 - [ ] **1. OS 업데이트 & 시스템 설정** — 소프트웨어 업데이트, 트랙패드/키보드, Finder 확장자 표시
 - [x] **2. 패키지 매니저** — Homebrew + [`macos/Brewfile`](macos/Brewfile)
 - [x] **3. 터미널 & 셸** — Ghostty + Pravka Nerd Font ([설정](dotfiles/ghostty/config), [폰트 설치](macos/install-fonts.sh))
-- [ ] **4. Git 설정** — user.name/email, alias, .gitignore_global
+- [x] **4. Git 설정** — user.name/email, alias, [.gitignore_global](dotfiles/git/.gitignore_global)
 - [ ] **5. SSH / GPG 키** — 키 생성, GitHub 등록, 커밋 서명
 - [ ] **6. 런타임 버전 매니저** — mise (node/python/java)
 - [ ] **7. 에디터 / IDE** — VS Code, Zed, DataGrip 설정 동기화
@@ -62,3 +62,6 @@ cp dotfiles/ghostty/config ~/.config/ghostty/config
 - Ghostty 설정은 `~/.config/ghostty/config` (XDG 경로)를 표준으로 사용한다.
   `~/Library/Application Support/com.mitchellh.ghostty/config` 에도 파일이 있으면
   **두 설정이 함께 적용되어 `font-family` 가 폴백으로 누적**되므로 한쪽만 유지할 것.
+- `git st`/`git lg`/`git sw`/`git wt` 등은 `~/.gitconfig` alias로 이관했다(`dotfiles/git/.gitconfig`).
+  `.zshrc`의 옛 `gitst` 류 shell alias는 제거했으며, `gitwtb`(함수형 로직 포함)와 `cherrypick`은
+  Step 10에서 `.zshrc`를 dotfiles로 편입할 때 함께 옮긴다.

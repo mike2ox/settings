@@ -1,0 +1,21 @@
+# 전역 gitignore — 어떤 프로젝트에서도 커밋되면 안 되는 OS/에디터 산출물
+# 배치 위치: ~/.gitignore_global
+# core.excludesfile 로 등록 (dotfiles/git/.gitconfig 참고)
+#
+# 프로젝트별 무시 규칙은 각 저장소의 .gitignore 에 작성할 것 — 여기 넣지 않는다.
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# 에디터
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# 환경 변수 / 시크릿
+.env
+.env.local

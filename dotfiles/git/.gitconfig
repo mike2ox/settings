@@ -1,0 +1,28 @@
+# Git 전역 설정
+# 배치 위치: ~/.gitconfig (기존 user.name/email 은 유지하고 아래 섹션만 병합)
+#
+# 적용 확인: git config --global --list
+
+[user]
+	name = mike2ox
+	email = firefinger07@gmail.com
+
+[push]
+	autoSetupRemote = true
+
+[init]
+	defaultBranch = main
+
+[core]
+	excludesfile = ~/.gitignore_global
+
+[pull]
+	rebase = false
+
+[alias]
+	# 기존 .zshrc shell alias 를 git alias 로 이관 (셸 무관하게 동작)
+	loga = log --graph --decorate --oneline --all
+	lg   = log --graph --decorate --oneline
+	sw   = switch
+	st   = status
+	wt   = worktree
