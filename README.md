@@ -20,6 +20,13 @@ brew bundle --file=macos/Brewfile
 # 5. dotfiles 배치
 mkdir -p ~/.config/ghostty
 cp dotfiles/ghostty/config ~/.config/ghostty/config
+
+mkdir -p ~/.config/mise
+cp dotfiles/mise/config.toml ~/.config/mise/config.toml
+
+# 6. mise 활성화 (셸 rc 파일에 추가, 이미 있다면 생략)
+echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
+exec zsh
 ```
 
 ## 구성
@@ -30,7 +37,8 @@ cp dotfiles/ghostty/config ~/.config/ghostty/config
 │   ├── Brewfile           # brew bundle 로 일괄 설치할 패키지 목록
 │   └── install-fonts.sh   # cask 없는 폰트(Pravka) 설치
 ├── dotfiles/
-│   └── ghostty/config     # 터미널 설정
+│   ├── ghostty/config     # 터미널 설정
+│   └── mise/config.toml   # 전역 런타임 버전 (node/python/pnpm)
 └── docs/
     ├── manual-install.md  # 자동화 불가 항목 (Xcode, 보안 프로그램 등)
     └── ssh-gpg-setup.md   # SSH 키 생성, GitHub 등록, 커밋 서명 절차
@@ -45,7 +53,7 @@ cp dotfiles/ghostty/config ~/.config/ghostty/config
 - [x] **3. 터미널 & 셸** — Ghostty + Pravka Nerd Font ([설정](dotfiles/ghostty/config), [폰트 설치](macos/install-fonts.sh))
 - [x] **4. Git 설정** — user.name/email, alias, [.gitignore_global](dotfiles/git/.gitignore_global)
 - [x] **5. SSH / GPG 키** — 키 생성, GitHub 등록, 커밋 서명 ([설정 절차](docs/ssh-gpg-setup.md))
-- [ ] **6. 런타임 버전 매니저** — mise (node/python/java)
+- [x] **6. 런타임 버전 매니저** — mise ([전역 설정](dotfiles/mise/config.toml)), node/python/java 고정 버전은 brew 로 유지
 - [ ] **7. 에디터 / IDE** — VS Code, Zed, DataGrip 설정 동기화
 - [ ] **8. AI 코딩 도구** — Claude Code, Codex 설정
 - [ ] **9. 컨테이너 / 가상화** — Docker
@@ -66,3 +74,6 @@ cp dotfiles/ghostty/config ~/.config/ghostty/config
 - `git st`/`git lg`/`git sw`/`git wt` 등은 `~/.gitconfig` alias로 이관했다(`dotfiles/git/.gitconfig`).
   `.zshrc`의 옛 `gitst` 류 shell alias는 제거했으며, `gitwtb`(함수형 로직 포함)와 `cherrypick`은
   Step 10에서 `.zshrc`를 dotfiles로 편입할 때 함께 옮긴다.
+- 런타임 버전은 원칙적으로 `mise`(`dotfiles/mise/config.toml`)로 관리한다. `node@18`/`node@20`,
+  `python@3.11`, `openjdk`/`openjdk@17` 처럼 프로젝트 전환 없이 전역 고정이 필요한 버전만
+  `macos/Brewfile`에 별도로 유지한다.

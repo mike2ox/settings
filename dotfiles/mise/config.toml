@@ -1,0 +1,12 @@
+# mise 전역 버전 설정
+# 배치 위치: ~/.config/mise/config.toml
+#
+# 적용 확인: mise ls
+
+[tools]
+node = "22"
+python = "3.10"
+pnpm = "8"
+
+[settings]
+idiomatic_version_file_enable_tools = ["node", "python"]
