@@ -1,0 +1,24 @@
+# Codex CLI 전역 설정 (발췌)
+# 배치 위치: ~/.codex/config.toml
+#
+# [projects.*] 신뢰 목록, marketplace 캐시 경로 등 머신/세션별로 자동
+# 생성되는 항목은 제외했다. 새 머신에서 프로젝트를 열 때 Codex 가
+# 신뢰 여부를 다시 물으면 그때 [projects."..."] 항목이 자동 추가된다.
+
+model = "gpt-5.5"
+model_reasoning_effort = "high"
+
+[features]
+multi_agent = true
+js_repl = false
+
+[tui]
+status_line = ["model-with-reasoning", "current-dir", "git-branch"]
+status_line_use_colors = true
+
+[desktop]
+conversationDetailMode = "STEPS_COMMANDS"
+ambient-suggestions-enabled = true
+keepRemoteControlAwakeWhilePluggedIn = true
+followUpQueueMode = "queue"
+dock-icon-preference = "codex-system"

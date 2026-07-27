@@ -32,6 +32,17 @@ exec zsh
 cp dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
 cp dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
 ./macos/install-vscode-extensions.sh
+
+# 8. Claude Code / Codex 설정 배치
+cp dotfiles/claude/settings.json ~/.claude/settings.json
+cp dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
+cp dotfiles/claude/RTK.md ~/.claude/RTK.md
+cp dotfiles/claude/statusline-command.sh ~/.claude/statusline-command.sh
+
+cp dotfiles/codex/AGENTS.md ~/.codex/AGENTS.md
+cp dotfiles/codex/RTK.md ~/.codex/RTK.md
+cp dotfiles/codex/hooks.json ~/.codex/hooks.json
+cp dotfiles/codex/config.toml ~/.codex/config.toml
 ```
 
 ## 구성
@@ -45,10 +56,20 @@ cp dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/key
 ├── dotfiles/
 │   ├── ghostty/config       # 터미널 설정
 │   ├── mise/config.toml     # 전역 런타임 버전 (node/python/pnpm)
-│   └── vscode/
-│       ├── settings.json    # 에디터 설정
-│       ├── keybindings.json # 커스텀 키 바인딩
-│       └── extensions.txt   # 설치 확장 목록
+│   ├── vscode/
+│   │   ├── settings.json    # 에디터 설정
+│   │   ├── keybindings.json # 커스텀 키 바인딩
+│   │   └── extensions.txt   # 설치 확장 목록
+│   ├── claude/
+│   │   ├── settings.json           # 모델/훅/상태줄 설정
+│   │   ├── CLAUDE.md               # 전역 지침 (RTK.md 로드)
+│   │   ├── RTK.md                  # rtk CLI 프록시 사용법
+│   │   └── statusline-command.sh   # rate limit/컨텍스트 사용량 상태줄
+│   └── codex/
+│       ├── AGENTS.md    # 전역 지침 (RTK.md 로드)
+│       ├── RTK.md        # rtk CLI 프록시 사용법 (Codex 용)
+│       ├── hooks.json    # Bash PreToolUse 훅 (rtk 프록시)
+│       └── config.toml   # 모델/추론강도/TUI 상태줄 설정 (발췌)
 └── docs/
     ├── manual-install.md  # 자동화 불가 항목 (Xcode, 보안 프로그램 등)
     └── ssh-gpg-setup.md   # SSH 키 생성, GitHub 등록, 커밋 서명 절차
@@ -65,7 +86,7 @@ cp dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/key
 - [x] **5. SSH / GPG 키** — 키 생성, GitHub 등록, 커밋 서명 ([설정 절차](docs/ssh-gpg-setup.md))
 - [x] **6. 런타임 버전 매니저** — mise ([전역 설정](dotfiles/mise/config.toml)), node/python/java 고정 버전은 brew 로 유지
 - [x] **7. 에디터 / IDE** — VS Code 설정/키바인딩/확장 동기화 ([dotfiles/vscode](dotfiles/vscode))
-- [ ] **8. AI 코딩 도구** — Claude Code, Codex 설정
+- [x] **8. AI 코딩 도구** — Claude Code, Codex 설정 ([claude](dotfiles/claude), [codex](dotfiles/codex))
 - [ ] **9. 컨테이너 / 가상화** — Docker
 - [ ] **10. dotfiles 관리** — 심볼릭 링크 또는 chezmoi
 - [ ] **11. CLI 유틸리티** — fzf, ripgrep, bat, eza, jq 등
@@ -90,3 +111,10 @@ cp dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/key
 - `dotfiles/vscode/settings.json`은 머신별 절대경로(`dart.flutterSdkPath` 등)를 제외하고 옮겼다.
   이런 항목이 필요해지면 새 머신의 실제 경로로 다시 설정할 것. `keybindings.json`은 VS Code가
   자동 생성하는 unbind 규칙을 빼고 실제로 의도한 커스텀 바인딩 3개만 남겼다.
+- `rtk`(Rust Token Killer)는 모든 셸 명령을 가로채 토큰을 절약하는 CLI 프록시로, Claude Code
+  와 Codex 양쪽에 훅으로 연결되어 있다(`macos/Brewfile`로 설치, `dotfiles/claude/RTK.md`·
+  `dotfiles/codex/RTK.md`로 각 도구에 사용법을 안내). `CLAUDE.md`/`AGENTS.md`는 이 RTK.md 를
+  `@RTK.md` 형태로 로드하는 진입점이다.
+- `dotfiles/codex/config.toml`은 `~/.codex/config.toml` 전체가 아니라 발췌본이다.
+  `[projects."경로"]` 신뢰 목록과 marketplace 캐시 경로처럼 머신·세션마다 자동 생성되는
+  항목은 제외했다.
