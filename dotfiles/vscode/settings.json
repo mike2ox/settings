@@ -1,0 +1,147 @@
+{
+  "explorer.confirmDragAndDrop": false,
+  "files.autoSave": "onFocusChange",
+  "extensions.ignoreRecommendations": true,
+  "editor.minimap.enabled": false,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "terminal.integrated.enableMultiLinePasteWarning": false,
+  "editor.accessibilitySupport": "off",
+  "workbench.iconTheme": "material-icon-theme",
+  "gitlens.gitCommands.skipConfirmations": ["fetch:command", "switch:command"],
+  "kite.showWelcomeNotificationOnStartup": false,
+  "editor.tabSize": 2,
+  "editor.stickyTabStops": true,
+  "editor.inlineSuggest.enabled": true,
+  "editor.codeActionsOnSave": {
+    "source.organizeImports": "explicit",
+  },
+  "github.copilot.enable": {
+    "*": false,
+    "plaintext": true,
+    "markdown": true,
+    "scminput": false,
+    "yaml": true,
+  },
+  "git.confirmSync": false,
+  "gitlens.defaultDateShortFormat": null,
+  "eslint.codeActionsOnSave.rules": null,
+  "[python]": {
+    "editor.formatOnType": true,
+  },
+  "python.terminal.activateEnvironment": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "githubPullRequests.fileListLayout": "flat",
+  "git.autofetch": true,
+  "lldb.suppressUpdateNotifications": true,
+  "githubPullRequests.pullBranch": "never",
+  "svg.preview.mode": "svg",
+  "editor.formatOnSave": true,
+  "editor.rulers": [
+    {
+      "color": "#32cd32",
+      "column": 80,
+    },
+    {
+      "color": "#f4cf0f",
+      "column": 100,
+    },
+    {
+      "color": "#ff0000",
+      "column": 120,
+    },
+  ],
+  "terminal.integrated.env.osx": {},
+  "todo-tree.general.tags": [
+    "BUG",
+    "HACK",
+    "FIXME",
+    "TODO",
+    "XXX",
+    "[ ]",
+    "[x]",
+    "// !",
+    "// ?",
+    "// @",
+    "Remarks",
+    "NOTE",
+  ],
+  "todo-tree.general.showActivityBarBadge": true,
+  "todo-tree.highlights.customHighlight": {
+    "TODO": {
+      "iconColour": "#228b22",
+      "background": "#ffffff44",
+    },
+    "// !": {
+      "icon": "alert",
+      "iconColour": "#FF0000",
+      "background": "#FFffff44",
+    },
+    "// ?": {
+      "icon": "question",
+      "iconColour": "#FFA500",
+      "background": "#FFffff44",
+    },
+    "// @": {
+      "icon": "person",
+      "iconColour": "#00bfff",
+      "background": "#ffffff44",
+    },
+    "NOTE": {
+      "icon": "comment",
+      "iconColour": "#00bfff",
+      "background": "#ffffff44",
+    },
+    "BUG": {
+      "icon": "bug",
+    },
+    "HACK": {
+      "icon": "tools",
+    },
+    "FIXME": {
+      "icon": "flame",
+    },
+    "XXX": {
+      "icon": "x",
+    },
+    "[ ]": {
+      "icon": "issue-draft",
+    },
+    "[x]": {
+      "icon": "issue-closed",
+    },
+  },
+  "tailwindCSS.experimental.classRegex": [
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"],
+  ],
+  "sonarlint.rules": {
+    "typescript:S6480": {
+      "level": "on",
+    },
+    "typescript:S6759": {
+      "level": "off",
+    },
+    "typescript:S6477": {
+      "level": "on",
+    },
+  },
+  "[svg]": {
+    "editor.defaultFormatter": "jock.svg",
+  },
+  "javascript.updateImportsOnFileMove.enabled": "always",
+  "editor.renderWhitespace": "none",
+  "editor.renderControlCharacters": false,
+  "git.openRepositoryInParentFolders": "always",
+  "[rust]": {
+    "editor.defaultFormatter": "rust-lang.rust-analyzer",
+  },
+  "github.copilot.editor.enableAutoCompletions": true,
+  "workbench.colorTheme": "Dracula Theme",
+  "gitlens.ai.model": "vscode",
+  "gitlens.ai.gitkraken.model": "gemini:gemini-2.0-flash",
+  "gitlens.ai.vscode.model": "copilot:gpt-4.1",
+  "workbench.secondarySideBar.defaultVisibility": "hidden",
+  "claudeCode.preferredLocation": "panel",
+  "todo-tree.ripgrep.ripgrep": "/opt/homebrew/bin/rg",
+  "diffEditor.hideUnchangedRegions.enabled": true,
+}

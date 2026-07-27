@@ -27,6 +27,11 @@ cp dotfiles/mise/config.toml ~/.config/mise/config.toml
 # 6. mise 활성화 (셸 rc 파일에 추가, 이미 있다면 생략)
 echo 'eval "$(mise activate zsh)"' >> ~/.zshrc
 exec zsh
+
+# 7. VS Code 설정 배치 + 확장 설치
+cp dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settings.json
+cp dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
+./macos/install-vscode-extensions.sh
 ```
 
 ## 구성
@@ -34,11 +39,16 @@ exec zsh
 ```
 .
 ├── macos/
-│   ├── Brewfile           # brew bundle 로 일괄 설치할 패키지 목록
-│   └── install-fonts.sh   # cask 없는 폰트(Pravka) 설치
+│   ├── Brewfile                     # brew bundle 로 일괄 설치할 패키지 목록
+│   ├── install-fonts.sh             # cask 없는 폰트(Pravka) 설치
+│   └── install-vscode-extensions.sh # dotfiles/vscode/extensions.txt 일괄 설치
 ├── dotfiles/
-│   ├── ghostty/config     # 터미널 설정
-│   └── mise/config.toml   # 전역 런타임 버전 (node/python/pnpm)
+│   ├── ghostty/config       # 터미널 설정
+│   ├── mise/config.toml     # 전역 런타임 버전 (node/python/pnpm)
+│   └── vscode/
+│       ├── settings.json    # 에디터 설정
+│       ├── keybindings.json # 커스텀 키 바인딩
+│       └── extensions.txt   # 설치 확장 목록
 └── docs/
     ├── manual-install.md  # 자동화 불가 항목 (Xcode, 보안 프로그램 등)
     └── ssh-gpg-setup.md   # SSH 키 생성, GitHub 등록, 커밋 서명 절차
@@ -54,7 +64,7 @@ exec zsh
 - [x] **4. Git 설정** — user.name/email, alias, [.gitignore_global](dotfiles/git/.gitignore_global)
 - [x] **5. SSH / GPG 키** — 키 생성, GitHub 등록, 커밋 서명 ([설정 절차](docs/ssh-gpg-setup.md))
 - [x] **6. 런타임 버전 매니저** — mise ([전역 설정](dotfiles/mise/config.toml)), node/python/java 고정 버전은 brew 로 유지
-- [ ] **7. 에디터 / IDE** — VS Code, Zed, DataGrip 설정 동기화
+- [x] **7. 에디터 / IDE** — VS Code 설정/키바인딩/확장 동기화 ([dotfiles/vscode](dotfiles/vscode))
 - [ ] **8. AI 코딩 도구** — Claude Code, Codex 설정
 - [ ] **9. 컨테이너 / 가상화** — Docker
 - [ ] **10. dotfiles 관리** — 심볼릭 링크 또는 chezmoi
@@ -77,3 +87,6 @@ exec zsh
 - 런타임 버전은 원칙적으로 `mise`(`dotfiles/mise/config.toml`)로 관리한다. `node@18`/`node@20`,
   `python@3.11`, `openjdk`/`openjdk@17` 처럼 프로젝트 전환 없이 전역 고정이 필요한 버전만
   `macos/Brewfile`에 별도로 유지한다.
+- `dotfiles/vscode/settings.json`은 머신별 절대경로(`dart.flutterSdkPath` 등)를 제외하고 옮겼다.
+  이런 항목이 필요해지면 새 머신의 실제 경로로 다시 설정할 것. `keybindings.json`은 VS Code가
+  자동 생성하는 unbind 규칙을 빼고 실제로 의도한 커스텀 바인딩 3개만 남겼다.
