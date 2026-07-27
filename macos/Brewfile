@@ -79,7 +79,7 @@ cask "chatgpt"
 # ─────────────────────────────────────────────
 # Cask — 개발 인프라
 # ─────────────────────────────────────────────
-cask "docker"
+cask "docker-desktop"    # 구 "docker" cask 가 upstream 에서 리네임됨
 cask "ngrok"
 cask "dotnet-sdk"
 

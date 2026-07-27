@@ -54,6 +54,9 @@ exec zsh
 
 # 11. Rectangle 설정 배치 (Rectangle 앱은 재실행해야 적용됨)
 defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectangle.plist
+
+# 12. 기본 시스템 설정 적용 (키 반복, Finder 확장자/뷰). 실행 전 값 확인
+./macos/macos-defaults.sh
 ```
 
 ## 구성
@@ -63,7 +66,8 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 ├── macos/
 │   ├── Brewfile                     # brew bundle 로 일괄 설치할 패키지 목록
 │   ├── install-fonts.sh             # cask 없는 폰트(Pravka) 설치
-│   └── install-vscode-extensions.sh # dotfiles/vscode/extensions.txt 일괄 설치
+│   ├── install-vscode-extensions.sh # dotfiles/vscode/extensions.txt 일괄 설치
+│   └── macos-defaults.sh            # 기본 시스템 설정 (키 반복, Finder 확장자/뷰)
 ├── dotfiles/
 │   ├── ghostty/config       # 터미널 설정
 │   ├── mise/config.toml     # 전역 런타임 버전 (node/python/pnpm)
@@ -93,7 +97,7 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 
 새 PC 세팅 시 아래 순서로 진행한다.
 
-- [ ] **1. OS 업데이트 & 시스템 설정** — 소프트웨어 업데이트, 트랙패드/키보드, Finder 확장자 표시
+- [x] **1. OS 업데이트 & 시스템 설정** — 키 반복/Finder 설정은 [`macos/macos-defaults.sh`](macos/macos-defaults.sh), 소프트웨어 업데이트·트랙패드 등 GUI 항목은 수동
 - [x] **2. 패키지 매니저** — Homebrew + [`macos/Brewfile`](macos/Brewfile)
 - [x] **3. 터미널 & 셸** — Ghostty + Pravka Nerd Font ([설정](dotfiles/ghostty/config), [폰트 설치](macos/install-fonts.sh))
 - [x] **4. Git 설정** — user.name/email, alias, [.gitignore_global](dotfiles/git/.gitignore_global)
@@ -156,3 +160,19 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 - Time Machine 은 이 컴퓨터에도 설정되어 있지 않았다(`tmutil destinationinfo` →
   "No destinations configured"). 외장 디스크 연결이 선행되어야 해서 자동화 대상이
   아니며, 새 PC 세팅의 마지막 단계로 문서에만 안내를 남겼다.
+- `macos/macos-defaults.sh`(Step 1)는 이 머신의 현재 상태를 캡처한 것이 아니라 새 PC에
+  적용할 기준값이다(현재 머신은 대부분 macOS 기본값 그대로였다). `defaults write` 로
+  안전하게 자동화되는 항목만 담았다: 빠른 키 반복(`KeyRepeat`/`InitialKeyRepeat`/
+  `ApplePressAndHold`), Finder 확장자 표시·기본 리스트 뷰·현재 폴더 검색.
+  소프트웨어 업데이트(sudo·재부팅)와 트랙패드 tap-to-click·추적 속도 등 GUI/시스템
+  설정 항목은 자동화하지 않고 스크립트 주석의 '수동 항목'에 남겼다. 실행하면 실제
+  시스템 설정이 바뀌므로 값 확인 후 돌린다.
+- Docker 는 upstream 리네임(`docker` → `docker-desktop`)에 맞춰 Brewfile 을 수정했다.
+  또한 Apple Silicon 에서는 Docker Desktop 최초 실행 시 Rosetta 자동 설치가
+  `VZErrorDomain` 으로 실패할 수 있어, `softwareupdate --install-rosetta` 로 선행 설치하는
+  절차를 [`docs/docker-setup.md`](docs/docker-setup.md)에 정리했다. `dotnet-sdk`·`tailscale`
+  처럼 `.pkg` 로 설치되는 cask 는 `brew bundle` 무인 실행 시 sudo 프롬프트를 받지 못해
+  실패하므로, 이 둘만 세팅 후 `brew install --cask dotnet-sdk tailscale` 로 따로 설치한다.
+- `dotfiles/claude/settings.json` 은 이식성을 위해 `bash ~/.claude/statusline-command.sh`
+  기반 portable 버전을 저장소에 유지한다. 실제 머신에 이미 다른 `settings.json`
+  (예: python statusline·theme·tui·permissions)이 있으면 덮어쓰지 말고 필요한 키만 병합한다.
