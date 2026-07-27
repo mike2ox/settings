@@ -32,7 +32,8 @@ cp dotfiles/ghostty/config ~/.config/ghostty/config
 ├── dotfiles/
 │   └── ghostty/config     # 터미널 설정
 └── docs/
-    └── manual-install.md  # 자동화 불가 항목 (Xcode, 보안 프로그램 등)
+    ├── manual-install.md  # 자동화 불가 항목 (Xcode, 보안 프로그램 등)
+    └── ssh-gpg-setup.md   # SSH 키 생성, GitHub 등록, 커밋 서명 절차
 ```
 
 ## 체크리스트
@@ -43,7 +44,7 @@ cp dotfiles/ghostty/config ~/.config/ghostty/config
 - [x] **2. 패키지 매니저** — Homebrew + [`macos/Brewfile`](macos/Brewfile)
 - [x] **3. 터미널 & 셸** — Ghostty + Pravka Nerd Font ([설정](dotfiles/ghostty/config), [폰트 설치](macos/install-fonts.sh))
 - [x] **4. Git 설정** — user.name/email, alias, [.gitignore_global](dotfiles/git/.gitignore_global)
-- [ ] **5. SSH / GPG 키** — 키 생성, GitHub 등록, 커밋 서명
+- [x] **5. SSH / GPG 키** — 키 생성, GitHub 등록, 커밋 서명 ([설정 절차](docs/ssh-gpg-setup.md))
 - [ ] **6. 런타임 버전 매니저** — mise (node/python/java)
 - [ ] **7. 에디터 / IDE** — VS Code, Zed, DataGrip 설정 동기화
 - [ ] **8. AI 코딩 도구** — Claude Code, Codex 설정
