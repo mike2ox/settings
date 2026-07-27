@@ -24,6 +24,16 @@ Homebrew cask 로 자동화할 수 없어 직접 설치해야 하는 것들. `br
 | FileVault | 시스템 설정 → 개인정보 보호 및 보안 | `fdesetup status` 로 확인, 꺼져 있으면 `sudo fdesetup enable` (복구키 보관 필수) |
 | Doppler | `macos/Brewfile` 로 CLI 는 자동 설치됨 | `doppler login` 으로 브라우저 인증 필요 (자동화 불가). 프로젝트 디렉터리에서 `doppler setup` 으로 project/config 연결 |
 
+## 백업 & 동기화
+
+| 항목 | 설치 경로 | 비고 |
+|---|---|---|
+| Time Machine | 시스템 설정 → 일반 → Time Machine | 백업용 외장 디스크를 연결한 뒤 수동으로 지정. `tmutil destinationinfo` 로 대상 확인 |
+| iCloud Drive | 시스템 설정 → Apple 계정 | Apple 계정으로 로그인만 하면 기존 파일이 자동 동기화됨. `defaults read MobileMeAccounts` 로 로그인 여부 확인 |
+| 기타 클라우드 동기화(Dropbox 등) | 필요 시 `brew install --cask dropbox` 등 | 이 컴퓨터에는 미사용. 필요해진 시점에 개별 설치 |
+
+⚠️ 디스크 연결·Apple 계정 로그인이 선행되어야 하는 항목이라 완전 자동화는 불가능하다. 새 PC 세팅의 마지막 단계로 남겨두고 수동으로 진행한다.
+
 ## 업무용 보안 / 관공서 액세서리
 
 회사 PC 한정 항목. 개발환경과 무관하며 **자동화 불가**하다. 해당 기관·서비스 사이트에 접속하면 설치 안내가 뜨는 방식이므로, 새 PC 세팅 시에는 **필요해진 시점에 설치**하는 것으로 충분하다.

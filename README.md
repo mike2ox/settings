@@ -106,7 +106,7 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 - [x] **11. CLI 유틸리티** — fzf, ripgrep, bat, eza, jq ([`macos/Brewfile`](macos/Brewfile))
 - [x] **12. 생산성 앱** — Raycast, Rectangle([설정](dotfiles/rectangle/com.knollsoft.Rectangle.plist)), Obsidian
 - [x] **13. 보안 & 자격증명** — 비밀번호 매니저, Doppler, FileVault ([안내](docs/manual-install.md#보안--자격증명))
-- [ ] **14. 백업 & 동기화** — Time Machine, 클라우드 동기화
+- [x] **14. 백업 & 동기화** — Time Machine, 클라우드 동기화 ([안내](docs/manual-install.md#백업--동기화))
 
 > 자동화할 수 없는 항목(Xcode, 관공서 보안 프로그램 등)은 [`docs/manual-install.md`](docs/manual-install.md) 참고.
 
@@ -153,3 +153,6 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
   누락되어 있었다. tap만으로는 아무것도 설치되지 않으므로 formula를 추가했다.
   로그인(`doppler login`)과 비밀번호 매니저 설치는 브라우저 인증/계정이 필요해
   자동화하지 않고 `docs/manual-install.md`에 안내만 남겼다.
+- Time Machine 은 이 컴퓨터에도 설정되어 있지 않았다(`tmutil destinationinfo` →
+  "No destinations configured"). 외장 디스크 연결이 선행되어야 해서 자동화 대상이
+  아니며, 새 PC 세팅의 마지막 단계로 문서에만 안내를 남겼다.
