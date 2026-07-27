@@ -51,6 +51,9 @@ cp dotfiles/zsh/.zshrc ~/.zshrc
 $(brew --prefix)/opt/fzf/install --all --no-bash --no-fish --no-update-rc
 
 exec zsh
+
+# 11. Rectangle 설정 배치 (Rectangle 앱은 재실행해야 적용됨)
+defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectangle.plist
 ```
 
 ## 구성
@@ -78,7 +81,8 @@ exec zsh
 │   │   ├── RTK.md        # rtk CLI 프록시 사용법 (Codex 용)
 │   │   ├── hooks.json    # Bash PreToolUse 훅 (rtk 프록시)
 │   │   └── config.toml   # 모델/추론강도/TUI 상태줄 설정 (발췌)
-│   └── zsh/.zshrc   # PATH, alias(gitwtb), 함수(cherrypick), 환경변수
+│   ├── zsh/.zshrc   # PATH, alias(gitwtb), 함수(cherrypick), 환경변수
+│   └── rectangle/com.knollsoft.Rectangle.plist # 창 관리 단축키
 └── docs/
     ├── manual-install.md  # 자동화 불가 항목 (Xcode, 보안 프로그램 등)
     ├── ssh-gpg-setup.md   # SSH 키 생성, GitHub 등록, 커밋 서명 절차
@@ -100,7 +104,7 @@ exec zsh
 - [x] **9. 컨테이너 / 가상화** — Docker Desktop ([설정 확인](docs/docker-setup.md))
 - [x] **10. dotfiles 관리** — `cp` 기반 정적 배치 (`.zshrc`: [gitwtb/cherrypick 포함](dotfiles/zsh/.zshrc))
 - [x] **11. CLI 유틸리티** — fzf, ripgrep, bat, eza, jq ([`macos/Brewfile`](macos/Brewfile))
-- [ ] **12. 생산성 앱** — Raycast, Rectangle, Obsidian
+- [x] **12. 생산성 앱** — Raycast, Rectangle([설정](dotfiles/rectangle/com.knollsoft.Rectangle.plist)), Obsidian
 - [ ] **13. 보안 & 자격증명** — 비밀번호 매니저, Doppler, FileVault
 - [ ] **14. 백업 & 동기화** — Time Machine, 클라우드 동기화
 
@@ -137,3 +141,11 @@ exec zsh
   자체 제공하는 바이너리(`/usr/bin/jq`)가 있어 brew 없이도 동작하지만, 최신 버전을
   고정하려고 Brewfile에 명시했다. `fzf`는 바이너리 설치만으로는 키바인딩/퍼지 완성이
   동작하지 않으므로 `$(brew --prefix)/opt/fzf/install --all` 셸 통합 설치가 별도로 필요하다.
+- Raycast는 Brewfile에 없었고 이 컴퓨터에도 설치돼 있지 않았다(Rectangle로 창 관리는
+  대체 중). Step 12 진행 시 새로 추가·설치했다.
+- `dotfiles/rectangle/com.knollsoft.Rectangle.plist`는 `defaults export` 원본에서 메뉴바
+  위치·최근 실행 버전처럼 머신/실행이력에 의존하는 값을 빼고, 의도적으로 바꾼 설정만
+  남겼다: 로그인 시 자동 실행, 대체 기본 단축키 사용, N 키(`reflowTodo`)/G 키
+  (`toggleTodo`) 커스텀 바인딩. Rectangle 재실행 후 적용된다.
+- Obsidian vault(`/Volumes/860QVO/Obsidian/...`)는 외장 볼륨의 개인 문서라 이 저장소
+  범위 밖이다. 새 PC에서는 볼륨을 마운트한 뒤 Obsidian에서 수동으로 vault를 열면 된다.
