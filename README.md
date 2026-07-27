@@ -43,6 +43,10 @@ cp dotfiles/codex/AGENTS.md ~/.codex/AGENTS.md
 cp dotfiles/codex/RTK.md ~/.codex/RTK.md
 cp dotfiles/codex/hooks.json ~/.codex/hooks.json
 cp dotfiles/codex/config.toml ~/.codex/config.toml
+
+# 9. .zshrc 배치
+cp dotfiles/zsh/.zshrc ~/.zshrc
+exec zsh
 ```
 
 ## 구성
@@ -65,11 +69,12 @@ cp dotfiles/codex/config.toml ~/.codex/config.toml
 │   │   ├── CLAUDE.md               # 전역 지침 (RTK.md 로드)
 │   │   ├── RTK.md                  # rtk CLI 프록시 사용법
 │   │   └── statusline-command.sh   # rate limit/컨텍스트 사용량 상태줄
-│   └── codex/
-│       ├── AGENTS.md    # 전역 지침 (RTK.md 로드)
-│       ├── RTK.md        # rtk CLI 프록시 사용법 (Codex 용)
-│       ├── hooks.json    # Bash PreToolUse 훅 (rtk 프록시)
-│       └── config.toml   # 모델/추론강도/TUI 상태줄 설정 (발췌)
+│   ├── codex/
+│   │   ├── AGENTS.md    # 전역 지침 (RTK.md 로드)
+│   │   ├── RTK.md        # rtk CLI 프록시 사용법 (Codex 용)
+│   │   ├── hooks.json    # Bash PreToolUse 훅 (rtk 프록시)
+│   │   └── config.toml   # 모델/추론강도/TUI 상태줄 설정 (발췌)
+│   └── zsh/.zshrc   # PATH, alias(gitwtb), 함수(cherrypick), 환경변수
 └── docs/
     ├── manual-install.md  # 자동화 불가 항목 (Xcode, 보안 프로그램 등)
     ├── ssh-gpg-setup.md   # SSH 키 생성, GitHub 등록, 커밋 서명 절차
@@ -89,7 +94,7 @@ cp dotfiles/codex/config.toml ~/.codex/config.toml
 - [x] **7. 에디터 / IDE** — VS Code 설정/키바인딩/확장 동기화 ([dotfiles/vscode](dotfiles/vscode))
 - [x] **8. AI 코딩 도구** — Claude Code, Codex 설정 ([claude](dotfiles/claude), [codex](dotfiles/codex))
 - [x] **9. 컨테이너 / 가상화** — Docker Desktop ([설정 확인](docs/docker-setup.md))
-- [ ] **10. dotfiles 관리** — 심볼릭 링크 또는 chezmoi
+- [x] **10. dotfiles 관리** — `cp` 기반 정적 배치 (`.zshrc`: [gitwtb/cherrypick 포함](dotfiles/zsh/.zshrc))
 - [ ] **11. CLI 유틸리티** — fzf, ripgrep, bat, eza, jq 등
 - [ ] **12. 생산성 앱** — Raycast, Rectangle, Obsidian
 - [ ] **13. 보안 & 자격증명** — 비밀번호 매니저, Doppler, FileVault
@@ -105,7 +110,7 @@ cp dotfiles/codex/config.toml ~/.codex/config.toml
   **두 설정이 함께 적용되어 `font-family` 가 폴백으로 누적**되므로 한쪽만 유지할 것.
 - `git st`/`git lg`/`git sw`/`git wt` 등은 `~/.gitconfig` alias로 이관했다(`dotfiles/git/.gitconfig`).
   `.zshrc`의 옛 `gitst` 류 shell alias는 제거했으며, `gitwtb`(함수형 로직 포함)와 `cherrypick`은
-  Step 10에서 `.zshrc`를 dotfiles로 편입할 때 함께 옮긴다.
+  `dotfiles/zsh/.zshrc`로 그대로 편입했다.
 - 런타임 버전은 원칙적으로 `mise`(`dotfiles/mise/config.toml`)로 관리한다. `node@18`/`node@20`,
   `python@3.11`, `openjdk`/`openjdk@17` 처럼 프로젝트 전환 없이 전역 고정이 필요한 버전만
   `macos/Brewfile`에 별도로 유지한다.
@@ -119,3 +124,8 @@ cp dotfiles/codex/config.toml ~/.codex/config.toml
 - `dotfiles/codex/config.toml`은 `~/.codex/config.toml` 전체가 아니라 발췌본이다.
   `[projects."경로"]` 신뢰 목록과 marketplace 캐시 경로처럼 머신·세션마다 자동 생성되는
   항목은 제외했다.
+- dotfiles 관리 방식은 심볼릭 링크나 chezmoi 대신 `cp` 로 정적 배치하는 방식을 택했다.
+  이 저장소의 설정 파일은 대부분 새 PC에서 한 번만 배치하면 되고, 이후 로컬에서
+  자유롭게 수정되는 것이 자연스러워서(에디터 설정 등) 저장소와의 실시간 동기화가
+  오히려 불필요하기 때문이다. 저장소 쪽 설정을 업데이트하고 싶으면 반대 방향으로
+  다시 복사해 온다.
