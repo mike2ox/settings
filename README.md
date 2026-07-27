@@ -105,7 +105,7 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 - [x] **10. dotfiles 관리** — `cp` 기반 정적 배치 (`.zshrc`: [gitwtb/cherrypick 포함](dotfiles/zsh/.zshrc))
 - [x] **11. CLI 유틸리티** — fzf, ripgrep, bat, eza, jq ([`macos/Brewfile`](macos/Brewfile))
 - [x] **12. 생산성 앱** — Raycast, Rectangle([설정](dotfiles/rectangle/com.knollsoft.Rectangle.plist)), Obsidian
-- [ ] **13. 보안 & 자격증명** — 비밀번호 매니저, Doppler, FileVault
+- [x] **13. 보안 & 자격증명** — 비밀번호 매니저, Doppler, FileVault ([안내](docs/manual-install.md#보안--자격증명))
 - [ ] **14. 백업 & 동기화** — Time Machine, 클라우드 동기화
 
 > 자동화할 수 없는 항목(Xcode, 관공서 보안 프로그램 등)은 [`docs/manual-install.md`](docs/manual-install.md) 참고.
@@ -149,3 +149,7 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
   (`toggleTodo`) 커스텀 바인딩. Rectangle 재실행 후 적용된다.
 - Obsidian vault(`/Volumes/860QVO/Obsidian/...`)는 외장 볼륨의 개인 문서라 이 저장소
   범위 밖이다. 새 PC에서는 볼륨을 마운트한 뒤 Obsidian에서 수동으로 vault를 열면 된다.
+- `doppler` CLI 는 `tap "dopplerhq/cli"`만 있고 `brew "doppler"` 자체가 Brewfile에
+  누락되어 있었다. tap만으로는 아무것도 설치되지 않으므로 formula를 추가했다.
+  로그인(`doppler login`)과 비밀번호 매니저 설치는 브라우저 인증/계정이 필요해
+  자동화하지 않고 `docs/manual-install.md`에 안내만 남겼다.

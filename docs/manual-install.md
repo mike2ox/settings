@@ -16,6 +16,14 @@ Homebrew cask 로 자동화할 수 없어 직접 설치해야 하는 것들. `br
 
 > App Store 앱을 자동화하려면 `mas` 를 설치하고 `mas list` 로 ID를 확인해 Brewfile 에 `mas "KakaoTalk", id: 869223134` 형태로 추가할 수 있다. 단 `mas` 는 App Store 로그인이 선행되어야 하므로 완전 무인 설치는 되지 않는다.
 
+## 보안 & 자격증명
+
+| 항목 | 설치 경로 | 비고 |
+|---|---|---|
+| 비밀번호 매니저 | App Store 또는 [1password.com](https://1password.com) | 로그인/동기화가 필요해 무인 설치 불가. 필요해진 시점에 직접 설치 |
+| FileVault | 시스템 설정 → 개인정보 보호 및 보안 | `fdesetup status` 로 확인, 꺼져 있으면 `sudo fdesetup enable` (복구키 보관 필수) |
+| Doppler | `macos/Brewfile` 로 CLI 는 자동 설치됨 | `doppler login` 으로 브라우저 인증 필요 (자동화 불가). 프로젝트 디렉터리에서 `doppler setup` 으로 project/config 연결 |
+
 ## 업무용 보안 / 관공서 액세서리
 
 회사 PC 한정 항목. 개발환경과 무관하며 **자동화 불가**하다. 해당 기관·서비스 사이트에 접속하면 설치 안내가 뜨는 방식이므로, 새 PC 세팅 시에는 **필요해진 시점에 설치**하는 것으로 충분하다.

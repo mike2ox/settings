@@ -51,6 +51,7 @@ brew "libpq"             # psql 등 클라이언트 도구
 brew "azure-cli"
 brew "cloudflared"
 brew "mkcert"            # 로컬 HTTPS 인증서
+brew "doppler"           # 시크릿 관리 (dopplerhq/cli tap, doppler login 필요)
 
 # ─────────────────────────────────────────────
 # 기타 유틸리티
