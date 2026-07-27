@@ -72,7 +72,8 @@ cp dotfiles/codex/config.toml ~/.codex/config.toml
 │       └── config.toml   # 모델/추론강도/TUI 상태줄 설정 (발췌)
 └── docs/
     ├── manual-install.md  # 자동화 불가 항목 (Xcode, 보안 프로그램 등)
-    └── ssh-gpg-setup.md   # SSH 키 생성, GitHub 등록, 커밋 서명 절차
+    ├── ssh-gpg-setup.md   # SSH 키 생성, GitHub 등록, 커밋 서명 절차
+    └── docker-setup.md    # Docker Desktop 최초 실행 시 확인할 설정
 ```
 
 ## 체크리스트
@@ -87,7 +88,7 @@ cp dotfiles/codex/config.toml ~/.codex/config.toml
 - [x] **6. 런타임 버전 매니저** — mise ([전역 설정](dotfiles/mise/config.toml)), node/python/java 고정 버전은 brew 로 유지
 - [x] **7. 에디터 / IDE** — VS Code 설정/키바인딩/확장 동기화 ([dotfiles/vscode](dotfiles/vscode))
 - [x] **8. AI 코딩 도구** — Claude Code, Codex 설정 ([claude](dotfiles/claude), [codex](dotfiles/codex))
-- [ ] **9. 컨테이너 / 가상화** — Docker
+- [x] **9. 컨테이너 / 가상화** — Docker Desktop ([설정 확인](docs/docker-setup.md))
 - [ ] **10. dotfiles 관리** — 심볼릭 링크 또는 chezmoi
 - [ ] **11. CLI 유틸리티** — fzf, ripgrep, bat, eza, jq 등
 - [ ] **12. 생산성 앱** — Raycast, Rectangle, Obsidian
