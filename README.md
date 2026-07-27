@@ -46,6 +46,10 @@ cp dotfiles/codex/config.toml ~/.codex/config.toml
 
 # 9. .zshrc 배치
 cp dotfiles/zsh/.zshrc ~/.zshrc
+
+# 10. fzf 셸 통합 (~/.fzf.zsh 생성. .zshrc 는 이미 직접 관리하므로 --no-update-rc)
+$(brew --prefix)/opt/fzf/install --all --no-bash --no-fish --no-update-rc
+
 exec zsh
 ```
 
@@ -95,7 +99,7 @@ exec zsh
 - [x] **8. AI 코딩 도구** — Claude Code, Codex 설정 ([claude](dotfiles/claude), [codex](dotfiles/codex))
 - [x] **9. 컨테이너 / 가상화** — Docker Desktop ([설정 확인](docs/docker-setup.md))
 - [x] **10. dotfiles 관리** — `cp` 기반 정적 배치 (`.zshrc`: [gitwtb/cherrypick 포함](dotfiles/zsh/.zshrc))
-- [ ] **11. CLI 유틸리티** — fzf, ripgrep, bat, eza, jq 등
+- [x] **11. CLI 유틸리티** — fzf, ripgrep, bat, eza, jq ([`macos/Brewfile`](macos/Brewfile))
 - [ ] **12. 생산성 앱** — Raycast, Rectangle, Obsidian
 - [ ] **13. 보안 & 자격증명** — 비밀번호 매니저, Doppler, FileVault
 - [ ] **14. 백업 & 동기화** — Time Machine, 클라우드 동기화
@@ -129,3 +133,7 @@ exec zsh
   자유롭게 수정되는 것이 자연스러워서(에디터 설정 등) 저장소와의 실시간 동기화가
   오히려 불필요하기 때문이다. 저장소 쪽 설정을 업데이트하고 싶으면 반대 방향으로
   다시 복사해 온다.
+- `ripgrep`은 이전부터 설치돼 있었지만 Brewfile에는 누락되어 있었다. `jq`는 macOS가
+  자체 제공하는 바이너리(`/usr/bin/jq`)가 있어 brew 없이도 동작하지만, 최신 버전을
+  고정하려고 Brewfile에 명시했다. `fzf`는 바이너리 설치만으로는 키바인딩/퍼지 완성이
+  동작하지 않으므로 `$(brew --prefix)/opt/fzf/install --all` 셸 통합 설치가 별도로 필요하다.

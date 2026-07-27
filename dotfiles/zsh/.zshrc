@@ -39,3 +39,6 @@ export DISABLE_NON_ESSENTIAL_MODEL_CALLS=1
 export CLAUDE_CODE_EFFORT_LEVEL=high
 export BASH_MAX_OUTPUT_LENGTH=10000
 eval "$(mise activate zsh)"
+
+# fzf 셸 통합 (Ctrl-R 히스토리 검색, Ctrl-T 파일 검색)
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
