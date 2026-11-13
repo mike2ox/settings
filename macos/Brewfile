@@ -37,8 +37,7 @@ brew "virtualenv"
 brew "pnpm"
 
 # mise 로 관리하는 것이 원칙이나, 전역 고정이 필요한 런타임만 brew 로 유지
-brew "node@18"
-brew "node@20"
+brew "node@20"           # node 는 20 부터 사용 (node@18 은 EOL 로 homebrew/core 에서 제거됨)
 brew "python@3.11"
 brew "openjdk"
 brew "openjdk@17"
@@ -48,7 +47,7 @@ brew "openjdk@17"
 # ─────────────────────────────────────────────
 brew "postgresql@14"
 brew "libpq"             # psql 등 클라이언트 도구
-brew "azure-cli"
+# azure-cli 는 homebrew/cask 로 이관됨 → 아래 Cask 섹션의 cask "azure-cli"
 brew "cloudflared"
 brew "mkcert"            # 로컬 HTTPS 인증서
 brew "doppler"           # 시크릿 관리 (dopplerhq/cli tap, doppler login 필요)
@@ -65,6 +64,7 @@ brew "rtk"               # Rust Token Killer (CLI 프록시)
 # Cask — 터미널 / 에디터
 # ─────────────────────────────────────────────
 cask "ghostty"
+cask "cmux"              # Ghostty 기반 AI 코딩 에이전트용 터미널 (세로 탭/알림)
 cask "visual-studio-code"
 cask "zed"
 cask "datagrip"
@@ -79,8 +79,9 @@ cask "chatgpt"
 # ─────────────────────────────────────────────
 # Cask — 개발 인프라
 # ─────────────────────────────────────────────
-cask "docker-desktop"    # 구 "docker" cask 가 upstream 에서 리네임됨
+cask "docker-desktop"    # 구 "docker" cask 가 upstream 에서 리네임됨. /usr/local/bin 생성에 sudo 필요
 cask "ngrok"
+cask "azure-cli"         # homebrew/core formula 에서 cask 로 이관됨
 cask "dotnet-sdk"
 
 # ─────────────────────────────────────────────

@@ -38,7 +38,8 @@ if [ -n "${GITHUB_TOKEN:-}" ]; then
 fi
 
 DOWNLOAD_URL=$(
-  curl -fsSL "${AUTH_ARGS[@]}" "$API_URL" \
+  # bash 3.2 + set -u 에서 빈 배열 확장이 unbound 에러가 나지 않도록 ${arr[@]+...} 형태 사용
+  curl -fsSL ${AUTH_ARGS[@]+"${AUTH_ARGS[@]}"} "$API_URL" \
     | grep -o "https://[^\"]*${ASSET_PREFIX}-[^\"]*\.zip" \
     | head -n1
 ) || err "릴리스 정보를 가져오지 못했습니다."

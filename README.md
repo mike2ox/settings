@@ -99,7 +99,7 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 
 - [x] **1. OS 업데이트 & 시스템 설정** — 키 반복/Finder 설정은 [`macos/macos-defaults.sh`](macos/macos-defaults.sh), 소프트웨어 업데이트·트랙패드 등 GUI 항목은 수동
 - [x] **2. 패키지 매니저** — Homebrew + [`macos/Brewfile`](macos/Brewfile)
-- [x] **3. 터미널 & 셸** — Ghostty + Pravka Nerd Font ([설정](dotfiles/ghostty/config), [폰트 설치](macos/install-fonts.sh))
+- [x] **3. 터미널 & 셸** — Ghostty(+ AI 에이전트용 cmux) + Pravka Nerd Font ([설정](dotfiles/ghostty/config), [폰트 설치](macos/install-fonts.sh))
 - [x] **4. Git 설정** — user.name/email, alias, [.gitignore_global](dotfiles/git/.gitignore_global)
 - [x] **5. SSH / GPG 키** — 키 생성, GitHub 등록, 커밋 서명 ([설정 절차](docs/ssh-gpg-setup.md))
 - [x] **6. 런타임 버전 매니저** — mise ([전역 설정](dotfiles/mise/config.toml)), node/python/java 고정 버전은 brew 로 유지
@@ -123,7 +123,7 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 - `git st`/`git lg`/`git sw`/`git wt` 등은 `~/.gitconfig` alias로 이관했다(`dotfiles/git/.gitconfig`).
   `.zshrc`의 옛 `gitst` 류 shell alias는 제거했으며, `gitwtb`(함수형 로직 포함)와 `cherrypick`은
   `dotfiles/zsh/.zshrc`로 그대로 편입했다.
-- 런타임 버전은 원칙적으로 `mise`(`dotfiles/mise/config.toml`)로 관리한다. `node@18`/`node@20`,
+- 런타임 버전은 원칙적으로 `mise`(`dotfiles/mise/config.toml`)로 관리한다. `node@20`,
   `python@3.11`, `openjdk`/`openjdk@17` 처럼 프로젝트 전환 없이 전역 고정이 필요한 버전만
   `macos/Brewfile`에 별도로 유지한다.
 - `dotfiles/vscode/settings.json`은 머신별 절대경로(`dart.flutterSdkPath` 등)를 제외하고 옮겼다.
@@ -171,8 +171,13 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
   또한 Apple Silicon 에서는 Docker Desktop 최초 실행 시 Rosetta 자동 설치가
   `VZErrorDomain` 으로 실패할 수 있어, `softwareupdate --install-rosetta` 로 선행 설치하는
   절차를 [`docs/docker-setup.md`](docs/docker-setup.md)에 정리했다. `dotnet-sdk`·`tailscale`
-  처럼 `.pkg` 로 설치되는 cask 는 `brew bundle` 무인 실행 시 sudo 프롬프트를 받지 못해
-  실패하므로, 이 둘만 세팅 후 `brew install --cask dotnet-sdk tailscale` 로 따로 설치한다.
+  처럼 `.pkg` 로 설치되는 cask 와 `docker-desktop`(`/usr/local/bin` 생성)은 `brew bundle`
+  무인 실행 시 sudo 프롬프트를 받지 못해 실패하므로, 이 셋은 세팅 후
+  `brew install --cask docker-desktop dotnet-sdk tailscale` 로 따로 설치한다.
+- node 는 20 부터 사용한다. `node@18` 은 EOL 로 homebrew/core 에서 제거되어 Brewfile 에서 뺐다.
+  `azure-cli` 는 formula 에서 cask 로 이관되어 `cask "azure-cli"` 로 옮겼다.
+- `macos/install-fonts.sh` 는 macOS 기본 bash 3.2 에서 `set -u` + 빈 배열 확장이 unbound
+  에러를 내던 문제를 고쳤다.
 - `dotfiles/claude/settings.json` 은 이식성을 위해 `bash ~/.claude/statusline-command.sh`
   기반 portable 버전을 저장소에 유지한다. 실제 머신에 이미 다른 `settings.json`
   (예: python statusline·theme·tui·permissions)이 있으면 덮어쓰지 말고 필요한 키만 병합한다.
