@@ -33,16 +33,19 @@ cp dotfiles/vscode/settings.json ~/Library/Application\ Support/Code/User/settin
 cp dotfiles/vscode/keybindings.json ~/Library/Application\ Support/Code/User/keybindings.json
 ./macos/install-vscode-extensions.sh
 
-# 8. Claude Code / Codex 설정 배치
+# 8. Claude Code / Codex 기본 설정 배치 (모델·상태줄·언어 등 선호 설정만)
 cp dotfiles/claude/settings.json ~/.claude/settings.json
 cp dotfiles/claude/CLAUDE.md ~/.claude/CLAUDE.md
-cp dotfiles/claude/RTK.md ~/.claude/RTK.md
 cp dotfiles/claude/statusline-command.sh ~/.claude/statusline-command.sh
 
 cp dotfiles/codex/AGENTS.md ~/.codex/AGENTS.md
-cp dotfiles/codex/RTK.md ~/.codex/RTK.md
-cp dotfiles/codex/hooks.json ~/.codex/hooks.json
 cp dotfiles/codex/config.toml ~/.codex/config.toml
+
+# 8-1. 스킬·에이전트·MCP·훅(rtk/알림음)·Codex 훅 신뢰는 my-skillset 이 설치한다.
+#      반드시 8 다음에 실행 — 8 의 cp 가 훅·MCP·신뢰 등록을 지우기 때문이다.
+#      심링크가 클론 경로를 가리키므로 지우지 않을 위치에 클론한다.
+git clone https://github.com/mike2ox/my-skillset.git /Volumes/860QVO/Project/my-skillset
+bash /Volumes/860QVO/Project/my-skillset/install.sh
 
 # 9. .zshrc 배치
 cp dotfiles/zsh/.zshrc ~/.zshrc
@@ -76,14 +79,11 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 │   │   ├── keybindings.json # 커스텀 키 바인딩
 │   │   └── extensions.txt   # 설치 확장 목록
 │   ├── claude/
-│   │   ├── settings.json           # 모델/훅/상태줄 설정
+│   │   ├── settings.json           # 모델/상태줄/언어 설정 (훅은 my-skillset)
 │   │   ├── CLAUDE.md               # 전역 지침 (RTK.md 로드)
-│   │   ├── RTK.md                  # rtk CLI 프록시 사용법
 │   │   └── statusline-command.sh   # rate limit/컨텍스트 사용량 상태줄
 │   ├── codex/
 │   │   ├── AGENTS.md    # 전역 지침 (RTK.md 로드)
-│   │   ├── RTK.md        # rtk CLI 프록시 사용법 (Codex 용)
-│   │   ├── hooks.json    # Bash PreToolUse 훅 (rtk 프록시)
 │   │   └── config.toml   # 모델/추론강도/TUI 상태줄 설정 (발췌)
 │   ├── zsh/.zshrc   # PATH, alias(gitwtb), 함수(cherrypick), 환경변수
 │   └── rectangle/com.knollsoft.Rectangle.plist # 창 관리 단축키
@@ -104,7 +104,7 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 - [x] **5. SSH / GPG 키** — 키 생성, GitHub 등록, 커밋 서명 ([설정 절차](docs/ssh-gpg-setup.md))
 - [x] **6. 런타임 버전 매니저** — mise ([전역 설정](dotfiles/mise/config.toml)), node/python/java 고정 버전은 brew 로 유지
 - [x] **7. 에디터 / IDE** — VS Code 설정/키바인딩/확장 동기화 ([dotfiles/vscode](dotfiles/vscode))
-- [x] **8. AI 코딩 도구** — Claude Code, Codex 설정 ([claude](dotfiles/claude), [codex](dotfiles/codex))
+- [x] **8. AI 코딩 도구** — Claude Code, Codex 기본 설정 ([claude](dotfiles/claude), [codex](dotfiles/codex)) → 이어서 [my-skillset](https://github.com/mike2ox/my-skillset) `install.sh`
 - [x] **9. 컨테이너 / 가상화** — Docker Desktop ([설정 확인](docs/docker-setup.md))
 - [x] **10. dotfiles 관리** — `cp` 기반 정적 배치 (`.zshrc`: [gitwtb/cherrypick 포함](dotfiles/zsh/.zshrc))
 - [x] **11. CLI 유틸리티** — fzf, ripgrep, bat, eza, jq ([`macos/Brewfile`](macos/Brewfile))
@@ -130,9 +130,15 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
   이런 항목이 필요해지면 새 머신의 실제 경로로 다시 설정할 것. `keybindings.json`은 VS Code가
   자동 생성하는 unbind 규칙을 빼고 실제로 의도한 커스텀 바인딩 3개만 남겼다.
 - `rtk`(Rust Token Killer)는 모든 셸 명령을 가로채 토큰을 절약하는 CLI 프록시로, Claude Code
-  와 Codex 양쪽에 훅으로 연결되어 있다(`macos/Brewfile`로 설치, `dotfiles/claude/RTK.md`·
-  `dotfiles/codex/RTK.md`로 각 도구에 사용법을 안내). `CLAUDE.md`/`AGENTS.md`는 이 RTK.md 를
-  `@RTK.md` 형태로 로드하는 진입점이다.
+  와 Codex 양쪽에 훅으로 연결되어 있다(`macos/Brewfile`로 설치). 훅과 `RTK.md`는 rtk 가 직접
+  생성·관리하는 파일(`rtk-owned`)이라 이 저장소에 스냅샷을 두지 않고, my-skillset `install.sh`
+  가 `rtk init -g --auto-patch`(Claude)·`rtk init -g --codex`(Codex)로 만든다. 예전 스냅샷은
+  Codex 에 `rtk hook claude`를 걸고 있었는데, 이러면 훅은 돌아도 Codex 가 재작성을 무시한다.
+  `CLAUDE.md`/`AGENTS.md`는 RTK.md 를 `@RTK.md` 형태로 로드하는 진입점이다.
+- **역할 분담**: 이 저장소는 모델·상태줄·언어·TUI 같은 기본 선호 설정만 갖고, 스킬·에이전트·
+  MCP·훅(rtk/알림음)·Codex 훅 신뢰 등록은 my-skillset 이 담당한다. 8 단계의 `cp`는 파일을
+  통째로 덮어 my-skillset 이 넣은 훅·MCP(`~/.codex/config.toml`)·`[hooks.state]`를 지우므로,
+  dotfiles 를 다시 배치했다면 my-skillset `install.sh`도 다시 실행한다(멱등).
 - `dotfiles/codex/config.toml`은 `~/.codex/config.toml` 전체가 아니라 발췌본이다.
   `[projects."경로"]` 신뢰 목록과 marketplace 캐시 경로처럼 머신·세션마다 자동 생성되는
   항목은 제외했다.
