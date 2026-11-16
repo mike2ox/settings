@@ -22,3 +22,11 @@ ambient-suggestions-enabled = true
 keepRemoteControlAwakeWhilePluggedIn = true
 followUpQueueMode = "queue"
 dock-icon-preference = "codex-system"
+
+# ponytail (필수 플러그인). git URL 이라 머신 무관하게 이식 가능
+[marketplaces.ponytail]
+source_type = "git"
+source = "https://github.com/DietrichGebert/ponytail.git"
+
+[plugins."ponytail@ponytail"]
+enabled = true

@@ -11,7 +11,16 @@
         "source": "github",
         "repo": "ThunderConch/tkm"
       }
+    },
+    "ponytail": {
+      "source": {
+        "source": "github",
+        "repo": "DietrichGebert/ponytail"
+      }
     }
+  },
+  "enabledPlugins": {
+    "ponytail@ponytail": true
   },
   "language": "한국어",
   "voice": {

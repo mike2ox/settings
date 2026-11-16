@@ -47,6 +47,13 @@ cp dotfiles/codex/config.toml ~/.codex/config.toml
 git clone https://github.com/mike2ox/my-skillset.git /Volumes/860QVO/Project/my-skillset
 bash /Volumes/860QVO/Project/my-skillset/install.sh
 
+# 8-2. [필수] ponytail 플러그인 (Claude Code + Codex). node 가 PATH 에 있어야 훅이 동작한다(6 단계 mise).
+#      설치 후 codex 실행 → /hooks 에서 ponytail 훅 3개(SessionStart·UserPromptSubmit·SubagentStart)를 신뢰(trust)하고 새 스레드를 시작한다.
+claude plugin marketplace add DietrichGebert/ponytail
+claude plugin install ponytail@ponytail
+codex plugin marketplace add DietrichGebert/ponytail
+codex plugin add ponytail@ponytail
+
 # 9. .zshrc 배치
 cp dotfiles/zsh/.zshrc ~/.zshrc
 
@@ -104,7 +111,7 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 - [x] **5. SSH / GPG 키** — 키 생성, GitHub 등록, 커밋 서명 ([설정 절차](docs/ssh-gpg-setup.md))
 - [x] **6. 런타임 버전 매니저** — mise ([전역 설정](dotfiles/mise/config.toml)), node/python/java 고정 버전은 brew 로 유지
 - [x] **7. 에디터 / IDE** — VS Code 설정/키바인딩/확장 동기화 ([dotfiles/vscode](dotfiles/vscode))
-- [x] **8. AI 코딩 도구** — Claude Code, Codex 기본 설정 ([claude](dotfiles/claude), [codex](dotfiles/codex)) → 이어서 [my-skillset](https://github.com/mike2ox/my-skillset) `install.sh`
+- [x] **8. AI 코딩 도구** — Claude Code, Codex 기본 설정 ([claude](dotfiles/claude), [codex](dotfiles/codex)) → 이어서 [my-skillset](https://github.com/mike2ox/my-skillset) `install.sh` → **필수** [ponytail](https://github.com/DietrichGebert/ponytail) 플러그인
 - [x] **9. 컨테이너 / 가상화** — Docker Desktop ([설정 확인](docs/docker-setup.md))
 - [x] **10. dotfiles 관리** — `cp` 기반 정적 배치 (`.zshrc`: [gitwtb/cherrypick 포함](dotfiles/zsh/.zshrc))
 - [x] **11. CLI 유틸리티** — fzf, ripgrep, bat, eza, jq ([`macos/Brewfile`](macos/Brewfile))
@@ -139,6 +146,16 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
   MCP·훅(rtk/알림음)·Codex 훅 신뢰 등록은 my-skillset 이 담당한다. 8 단계의 `cp`는 파일을
   통째로 덮어 my-skillset 이 넣은 훅·MCP(`~/.codex/config.toml`)·`[hooks.state]`를 지우므로,
   dotfiles 를 다시 배치했다면 my-skillset `install.sh`도 다시 실행한다(멱등).
+- **ponytail 은 필수 플러그인**이다. AI 에이전트가 과잉 설계 없이 최소한의 코드만 쓰도록 하는
+  규칙(MIT). 8 단계 `cp`가 활성화 상태를 지우지 않도록 `dotfiles/claude/settings.json`
+  (`extraKnownMarketplaces`·`enabledPlugins`)과 `dotfiles/codex/config.toml`
+  (`[marketplaces.ponytail]`·`[plugins."ponytail@ponytail"]`)에 등록해 두었지만, 플러그인 파일
+  자체는 8-2 의 설치 명령으로 받아야 한다. Codex 훅 신뢰 기록
+  (`[hooks.state."ponytail@ponytail:..."]`)도 8 단계 `cp`에 지워지므로, dotfiles 를 다시
+  배치했다면 `/hooks`에서 다시 trust 한다. 설치 직후 ponytail 이 상태줄 설정을 제안하면
+  거절한다(수락하면 `~/.claude/settings.json`의 `statusLine`이 ponytail 스크립트로 바뀐다).
+  공식 배포처는 GitHub `DietrichGebert/ponytail` 과 npm `@dietrichgebert/ponytail` 뿐이니
+  이름이 비슷한 포크를 설치하지 않는다.
 - `dotfiles/codex/config.toml`은 `~/.codex/config.toml` 전체가 아니라 발췌본이다.
   `[projects."경로"]` 신뢰 목록과 marketplace 캐시 경로처럼 머신·세션마다 자동 생성되는
   항목은 제외했다.
