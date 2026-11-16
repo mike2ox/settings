@@ -86,7 +86,7 @@ defaults import com.knollsoft.Rectangle dotfiles/rectangle/com.knollsoft.Rectang
 │   │   ├── keybindings.json # 커스텀 키 바인딩
 │   │   └── extensions.txt   # 설치 확장 목록
 │   ├── claude/
-│   │   ├── settings.json           # 모델/상태줄/언어 설정 (훅은 my-skillset)
+│   │   ├── settings.json           # 모델/상태줄/언어/git·PR 권한 설정 (훅은 my-skillset)
 │   │   ├── CLAUDE.md               # 전역 지침 (RTK.md 로드)
 │   │   └── statusline-command.sh   # rate limit/컨텍스트 사용량 상태줄
 │   ├── codex/
